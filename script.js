@@ -1,6 +1,7 @@
 const input = document.querySelector("#fruit");
 const suggestions = document.querySelector(".suggestions ul");
 
+//array of items to be searched
 const fruits = [
   "Apple",
   "Apricot",
@@ -83,6 +84,7 @@ const fruits = [
   "Yuzu",
 ];
 
+//filter fruits array, retain the first six items, bold matching characters and show suggestions
 function search(str) {
   let results = fruits.filter((fruit) => {
     if (fruit.toLowerCase().includes(str)) {
@@ -94,6 +96,7 @@ function search(str) {
   showSuggestions(results);
 }
 
+//empty search list if user backspaces to empty the input text, pass input to search function
 function searchHandler(e) {
   if (e.key === "Backspace") {
     if (input.value.length === 0) {
@@ -105,6 +108,7 @@ function searchHandler(e) {
   search(str);
 }
 
+//create list elements from filtered results array
 function showSuggestions(results) {
   suggestions.innerHTML = "";
   for (let i = 0; i < 6; i++) {
@@ -116,14 +120,13 @@ function showSuggestions(results) {
   }
 }
 
+//set input text to clicked suggestion
 function useSuggestion(e) {
   input.value = e.target.innerText;
   suggestions.innerHTML = "";
 }
 
-input.addEventListener("keyup", searchHandler);
-suggestions.addEventListener("click", useSuggestion);
-
+//set characters matching search input to bold
 function matchCharsBold(arr) {
   strArray = [...arr];
   const regEx = new RegExp(input.value, "i");
@@ -132,3 +135,6 @@ function matchCharsBold(arr) {
     return element.replace(regEx, "<strong>$&</strong>");
   });
 }
+
+input.addEventListener("keyup", searchHandler);
+suggestions.addEventListener("click", useSuggestion);

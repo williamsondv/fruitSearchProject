@@ -12,6 +12,7 @@ body {
   justify-content: center;
   height: 100vh;
   background: linear-gradient(#ec4d03, #f17544);
+  font-family: "Roboto", sans-serif;
 }
 
 input {
@@ -24,7 +25,6 @@ input {
 
 .search-container .suggestions {
   padding: 0px;
-  transition: all 1s linear;
 }
 
 ul {
@@ -43,4 +43,5 @@ ul li {
 }
 ul li:hover {
   background-color: rgb(224, 85, 4);
+  transition: all 0.5s linear;
 }
