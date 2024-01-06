@@ -86,14 +86,16 @@ const fruits = [
 
 //filter fruits array, retain the first six items, bold matching characters and show suggestions
 function search(str) {
-  let results = fruits.filter((fruit) => {
-    if (fruit.toLowerCase().includes(str)) {
-      return fruit;
-    }
-  });
-  results = results.slice(0, 6);
-  results = matchCharsBold(results);
-  showSuggestions(results);
+  if (input.value.length > 0) {
+    let results = fruits.filter((fruit) => {
+      if (fruit.toLowerCase().includes(str)) {
+        return fruit;
+      }
+    });
+    results = results.slice(0, 6);
+    results = matchCharsBold(results);
+    showSuggestions(results);
+  }
 }
 
 //empty search list if user backspaces to empty the input text, pass input to search function
@@ -122,7 +124,12 @@ function showSuggestions(results) {
 
 //set input text to clicked suggestion
 function useSuggestion(e) {
-  input.value = e.target.innerText;
+  if (e.target.tagName === "LI") {
+    const str = e.target.innerText;
+    input.value = str;
+  } else if (e.target.tagName === "B") {
+    input.value = e.target.parentElement.innerText;
+  }
   suggestions.innerHTML = "";
 }
 
@@ -132,7 +139,7 @@ function matchCharsBold(arr) {
   const regEx = new RegExp(input.value, "i");
 
   return strArray.map((element) => {
-    return element.replace(regEx, "<strong>$&</strong>");
+    return element.replace(regEx, "<b>$&</b>");
   });
 }
 
