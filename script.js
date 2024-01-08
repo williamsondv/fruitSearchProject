@@ -98,11 +98,11 @@ function search(str) {
   }
 }
 
-//empty search list if user backspaces to empty the input text, pass input to search function
+//empty search list if user backspaces or deletes to empty the input text, pass input to search function
 function searchHandler(e) {
-  if (e.key === "Backspace") {
+  if (e.key === "Backspace" || e.key === "Delete") {
     if (input.value.length === 0) {
-      suggestions.innerHTML = "";
+      suggestions.replaceChildren();
       return;
     }
   }
@@ -112,7 +112,7 @@ function searchHandler(e) {
 
 //create list elements from filtered results array
 function showSuggestions(results) {
-  suggestions.innerHTML = "";
+  suggestions.replaceChildren();
   for (let i = 0; i < 6; i++) {
     if (results[i]) {
       suggestions.appendChild(
@@ -130,7 +130,7 @@ function useSuggestion(e) {
   } else if (e.target.tagName === "B") {
     input.value = e.target.parentElement.innerText;
   }
-  suggestions.innerHTML = "";
+  suggestions.replaceChildren();
 }
 
 //set characters matching search input to bold
